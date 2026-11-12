@@ -1,0 +1,36 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101211"><meta name="description" content="ANIMA: cámara local con ocho filtros de animales que siguen tu rostro."><title>ANIMA — Cámara de animales</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="header"><a href="./" class="brand" aria-label="ANIMA, inicio"><span class="brand-icon">a</span>anima<span class="brand-dot">®</span></a><span class="header-note">OTRA CARA DE TI.</span><div class="header-right"><span class="local"><i></i> EN TU NAVEGADOR</span><button id="galleryOpen" class="gallery-button">MIS FOTOS <span id="photoCount">0</span></button></div></header>
+<main>
+<div class="studio-top"><div><span class="eyebrow">FACE FILTER STUDIO / 001</span><h1>Un poco más <em>salvaje.</em></h1></div><p>Ocho animales. Tu mejor cara.<br>Muévete, abre la boca y captura el momento.</p></div>
+<div class="studio">
+<section class="camera-column" aria-label="Cámara con filtros">
+<div class="camera-stage" id="stage">
+<canvas id="composite" width="1280" height="960" aria-label="Vista previa de cámara con el filtro seleccionado"></canvas>
+<div class="placeholder" id="placeholder"><span class="placeholder-tag">TU CÁMARA, OTRA PERSONALIDAD</span><canvas id="heroAnimal" width="700" height="600" aria-label="Ilustración de vista previa del filtro"></canvas><div class="placeholder-bottom"><h2>Conecta con tu<br><em>lado animal.</em></h2><p>Activa la cámara.<br>Nosotros ponemos las orejas.</p></div></div>
+<div class="camera-meta"><span class="live-pill"><i id="liveDot"></i><span id="liveStatus">CÁMARA OFF</span></span><span class="camera-number">ANIMA / LIVE</span></div>
+<div id="faceHint" class="face-hint" hidden>Centra tu rostro en la cámara</div>
+<div id="countdown" class="countdown" hidden></div><div id="flash" class="flash"></div>
+<div class="camera-bottom"><span id="cameraFormat">IMAGEN EN ESPEJO</span><button class="text-button" id="fullscreen" aria-label="Ampliar cámara">AMPLIAR ↗</button></div>
+</div>
+<div class="capture-bar"><div class="capture-options"><button id="sound" aria-pressed="false">SONIDO OFF</button><button id="timer" aria-pressed="false">TIMER OFF</button></div><button id="shutter" class="shutter" disabled aria-label="Tomar foto"><span></span></button><button id="lastPhoto" class="last-photo" disabled aria-label="Abrir última foto"><span>FOTOS<br><b>00</b></span><img id="lastImage" alt="Última captura" hidden></button></div>
+<div class="filter-heading"><span>ELIGE TU ALTER EGO</span><span>← → PARA CAMBIAR</span></div><div class="filter-list" id="filterList" role="group" aria-label="Filtros de animales"></div>
+</section>
+<aside class="sidebar">
+<div class="selected-meta"><span class="eyebrow">FILTRO SELECCIONADO</span><span id="filterNumber">01 / 08</span></div>
+<div class="filter-title"><h2 id="filterName">Perro</h2><span id="filterTag">EL CLÁSICO</span></div>
+<p id="filterDescription" class="filter-description">Orejas suaves, hocico de cachorro y una lengua que no sabe quedarse quieta.</p>
+<div class="interaction"><span class="interaction-icon" aria-hidden="true">↗</span><div><span>PRUÉBALO</span><p id="filterAction">Abre la boca para sacar la lengua.</p></div></div>
+<div class="camera-controls"><button id="start" class="primary">ACTIVAR CÁMARA <span>↗</span></button><button id="stop" class="secondary" disabled>DETENER CÁMARA</button></div>
+<div class="message-box"><span id="loadingSpinner" class="spinner" hidden></span><p id="message" role="status" aria-live="polite">Todo listo. Solo falta tu cara.</p></div>
+<div class="save-panel"><div class="save-heading"><span>GUÁRDALO PARA DESPUÉS</span><span class="folder-icon" aria-hidden="true">▱</span></div><p>Tus fotos, en tu computador.<br>Descárgalas o elige dónde guardarlas.</p><button id="chooseFolder" class="folder-button">ELEGIR CARPETA <span>+</span></button><div id="folderInfo" hidden><div class="folder-current"><span id="folderName"></span><button id="disconnectFolder" aria-label="Desconectar carpeta">×</button></div><label class="switch-label"><input id="autoSave" type="checkbox"><span>Guardar próximas fotos automáticamente</span></label></div><p id="folderHint" class="micro">La descarga normal siempre está disponible.</p></div>
+<div class="privacy"><span class="privacy-dot"></span><p>Procesamiento local.<br>Las fotos se guardan cuando tú lo decides.</p></div>
+<details class="help"><summary>Antes de empezar</summary><p>Permite la cámara, busca buena luz y deja espacio sobre tu cabeza para las orejas. La interacción detecta apertura de boca, no tu lengua. Usa Chrome o Edge con Live Server en localhost o HTTPS. Internet solo para descargar el detector.</p><button id="previewOpen">VER FILTROS · SIN CÁMARA</button></details>
+</aside></div>
+<div class="bottom-note"><span>HECHO PARA JUGAR. DISEÑADO PARA TU CARA.</span><span>FELIPE PUENTES / ESTUDIO INTERACTIVO</span></div>
+</main>
+<video id="video" playsinline muted autoplay hidden></video>
+<dialog id="photoDialog" class="photo-dialog"><div class="dialog-top"><div><span class="eyebrow">CAPTURA DE SESIÓN</span><h2 id="photoTitle">Tu momento animal.</h2></div><button id="closePhoto" class="close-button" aria-label="Cerrar foto">×</button></div><img id="photoPreview" alt="Foto capturada con el filtro"><p id="photoInfo" class="dialog-info"></p><div class="dialog-actions"><button id="downloadPhoto" class="primary">GUARDAR FOTO ↓</button><button id="folderPhoto" class="secondary" disabled>GUARDAR EN CARPETA</button><button id="deletePhoto" class="text-button">QUITAR DE SESIÓN</button></div><p class="micro">“Guardar foto” descarga el archivo. Quitar de sesión no elimina archivos guardados en tu computador.</p></dialog>
+<dialog id="galleryDialog" class="gallery-dialog"><div class="dialog-top"><div><span class="eyebrow">SOLO DURANTE ESTA SESIÓN</span><h2>Tu pequeña colección.</h2></div><button id="closeGallery" class="close-button" aria-label="Cerrar galería">×</button></div><p id="galleryEmpty">Aquí aparecerán tus fotos. Prueba un filtro y captura tu primera cara animal.</p><div class="gallery-grid" id="galleryGrid"></div><p class="micro">Hasta 20 fotos en memoria. Se borran de esta galería al recargar; los archivos descargados permanecen en tu computador.</p></dialog>
+<dialog id="previewDialog" class="preview-dialog"><div class="dialog-top"><div><span class="eyebrow">ILUSTRACIONES / SIN CÁMARA</span><h2>Conoce a tus alter egos.</h2></div><button id="closePreview" class="close-button" aria-label="Cerrar vista de filtros">×</button></div><p>Esta vista muestra los dibujos y las animaciones. No utiliza ni simula detección facial.</p><div id="previewGrid" class="preview-grid"></div></dialog>
+<script type="module" src="script.js"></script></body></html>
